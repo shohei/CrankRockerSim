@@ -1,3 +1,12 @@
+/*
+****************************************
+******** Crank Rocker Simulator ********
+*
+* 2014 Shohei Aoki, All rights reserved.
+*
+****************************************
+*/
+
 #include <wx/wx.h>
 #include <iostream>
 #include <stdlib.h>
@@ -59,7 +68,7 @@ void MyTimer::Notify()
 
 void MyTimer::start()
 {
-  wxTimer::Start(20);
+  wxTimer::Start(10);
 }
 
 MyFrame::MyFrame()
@@ -74,7 +83,7 @@ MyFrame::MyFrame()
   printf("get file pointer\n");
   fp = fopen("plot.dat","w");
   if(fp==NULL) exit(0);
-  printf("FILE POINTER OBTAINED\n");
+  printf("File pointer obtained\n");
 }
 
 BEGIN_EVENT_TABLE(MyFrame,wxFrame)
@@ -82,13 +91,11 @@ EVT_CLOSE(MyFrame::onClose)
 EVT_PAINT(MyFrame::paintEvent)
 END_EVENT_TABLE()
 
-
 void MyFrame::paintEvent(wxPaintEvent& event)
 {
   wxPaintDC dc(this);
   render(dc);
 }
-
 
 /*****************************
 *** GEOMETORY DESCRIPTION ***
@@ -136,7 +143,7 @@ void MyFrame::render(wxDC& dc)
   x3 = x1 + r4*cos(beta);  
   y3 = y1 + r4*sin(beta);
 
-  double conrod = sqrt((y3-y2)*(y3-y2)+(x3-x2)*(x3-x2));
+  //double conrod = sqrt((y3-y2)*(y3-y2)+(x3-x2)*(x3-x2));
   //cout << "conrod length: " << conrod << endl;
   //cout << "alpha_deg: " << alpha_deg << ", x2: " << x2 << ", y2: " << y2 << endl;
 
@@ -160,5 +167,4 @@ MyFrame::~MyFrame()
   delete timer;
   fclose(fp);
 }
-
 
