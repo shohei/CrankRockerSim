@@ -116,7 +116,7 @@ void MyFrame::render(wxDC& dc)
   alpha = (double)alpha_deg*M_PI/180;
   alpha1 = acos((r1-r2*cos(alpha))/sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha)));
   alpha2 = acos((pow(r1,2)+pow(r2,2)-pow(r3,2)+pow(r4,2)-2*r1*r2*cos(alpha))/(2*r4*sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha))));
-  fprintf(fp,"%f %f\n",-1.0*alpha,alpha2);
+  //fprintf(fp,"%f %f\n",-1.0*alpha,alpha2);
   //cout << "alpha1: " << alpha1 << ", alpha2: " << alpha2 << endl;
   //cout << "content: " << (pow(r1,2)+pow(r2,2)-pow(r3,2)+pow(r4,2)-2*r1*r2*cos(alpha))/(2*r4*sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha))) << endl;
   if(alpha_deg < 180){
