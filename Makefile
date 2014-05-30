@@ -1,6 +1,6 @@
-COMPILE = g++  
+COMPILE = g++ 
 LIBS = `wx-config --libs` 
-FLAGS = `wx-config --cxxflags`
+FLAGS = `wx-config --cxxflags` -fstack-protector-all -Wstack-protector -fno-omit-frame-pointer -g -O0 -Wall
 SOURCE = *.cpp
 OBJ = $(SOURCE:.cpp=.o)
 ICONFILE = cba.icns
