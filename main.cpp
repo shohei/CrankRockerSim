@@ -113,20 +113,19 @@ void MyFrame::render(wxDC& dc)
 
   alpha_deg += 2;
   if(alpha_deg >360) alpha_deg=0;
-  alpha = -1.0*(double)alpha_deg*M_PI/180;
+  alpha = (double)alpha_deg*M_PI/180;
   alpha1 = acos((r1-r2*cos(alpha))/sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha)));
   alpha2 = acos((pow(r1,2)+pow(r2,2)-pow(r3,2)+pow(r4,2)-2*r1*r2*cos(alpha))/(2*r4*sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha))));
   fprintf(fp,"%f %f\n",-1.0*alpha,alpha2);
   //cout << "alpha1: " << alpha1 << ", alpha2: " << alpha2 << endl;
   //cout << "content: " << (pow(r1,2)+pow(r2,2)-pow(r3,2)+pow(r4,2)-2*r1*r2*cos(alpha))/(2*r4*sqrt(pow(r1,2)+pow(r2,2)-2*r1*r2*cos(alpha))) << endl;
   if(alpha_deg < 180){
-      cout << "0 < a < 180" << endl;
+      //cout << "0 < a < 180" << endl;
       beta = M_PI - (alpha1 - alpha2); 
   } else {
-      cout << "180 < a < 360" << endl;
+      //cout << "180 < a < 360" << endl;
       beta = M_PI + (alpha1 + alpha2); 
   }
-  
 
   x0 = 200;
   y0 = 200;
@@ -135,10 +134,10 @@ void MyFrame::render(wxDC& dc)
   x2 = x0 + r2*cos(alpha);
   y2 = y0 + r2*sin(alpha);
   x3 = x1 + r4*cos(beta);  
-  y3 = y1 - r4*sin(beta);
+  y3 = y1 + r4*sin(beta);
 
   double conrod = sqrt((y3-y2)*(y3-y2)+(x3-x2)*(x3-x2));
-  cout << "conrod length: " << conrod << endl;
+  //cout << "conrod length: " << conrod << endl;
   //cout << "alpha_deg: " << alpha_deg << ", x2: " << x2 << ", y2: " << y2 << endl;
 
   dc.SetBackground(*wxWHITE_BRUSH);
