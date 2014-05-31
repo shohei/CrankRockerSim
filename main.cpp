@@ -11,8 +11,14 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include <wx/slider.h>
 
 using namespace std;
+
+const int ID_SLIDER1 = 1;
+const int ID_SLIDER2 = 2;
+const int ID_SLIDER3 = 3;
+const int ID_SLIDER4 = 4;
 
 class MyFrame;
 
@@ -36,6 +42,14 @@ public:
     ~MyFrame();
     MyTimer *timer;
     FILE *fp;
+    wxSlider *slider1,*slider2,*slider3,*slider4,*slider5;
+    void OnScroll1(wxScrollEvent& event);
+    void OnScroll2(wxScrollEvent& event);
+    void OnScroll3(wxScrollEvent& event);
+    void OnScroll4(wxScrollEvent& event);
+    void OnScroll5(wxScrollEvent& event);
+    int pos1,pos2,pos3,pos4,pos5;
+    int r1,r2,r3,r4,speed;
     DECLARE_EVENT_TABLE();
 };
 
@@ -84,6 +98,23 @@ MyFrame::MyFrame()
   fp = fopen("plot.dat","w");
   if(fp==NULL) exit(0);
   printf("File pointer obtained\n");
+  wxPanel *panel = new wxPanel(this);
+  slider1 = new wxSlider(panel,ID_SLIDER1,120,0,200,wxPoint(10,20),wxSize(200,-1));
+  slider2 = new wxSlider(panel,ID_SLIDER2,50,0,200,wxPoint(10,50),wxSize(200,-1));
+  slider3 = new wxSlider(panel,ID_SLIDER3,100,0,200,wxPoint(10,80),wxSize(200,-1));
+  slider4 = new wxSlider(panel,ID_SLIDER4,80,0,200,wxPoint(10,110),wxSize(200,-1));
+  r1 = 120;
+  r2 = 50;
+  r3 = 100;
+  r4 = 80;
+  Connect(ID_SLIDER1,wxEVT_COMMAND_SLIDER_UPDATED,
+          wxScrollEventHandler(MyFrame::OnScroll1));
+  Connect(ID_SLIDER2,wxEVT_COMMAND_SLIDER_UPDATED,
+          wxScrollEventHandler(MyFrame::OnScroll2));
+  Connect(ID_SLIDER3,wxEVT_COMMAND_SLIDER_UPDATED,
+          wxScrollEventHandler(MyFrame::OnScroll3));
+  Connect(ID_SLIDER4,wxEVT_COMMAND_SLIDER_UPDATED,
+          wxScrollEventHandler(MyFrame::OnScroll4));
 }
 
 BEGIN_EVENT_TABLE(MyFrame,wxFrame)
@@ -111,10 +142,6 @@ r2 \       \ r4
 
 void MyFrame::render(wxDC& dc)
 {
-  static int r1 = 120;
-  static int r2 = 50;
-  static int r3 = 100;
-  static int r4 = 80;
   static int alpha_deg = 0;
   static double x0,y0,x1,y1,x2,y2,x3,y3,alpha,alpha1,alpha2,beta;
 
@@ -134,7 +161,7 @@ void MyFrame::render(wxDC& dc)
       beta = M_PI + (alpha1 + alpha2); 
   }
 
-  x0 = 200;
+  x0 = 300;
   y0 = 200;
   x1 = x0 + r1;
   y1 = y0;
@@ -166,5 +193,39 @@ MyFrame::~MyFrame()
 {
   delete timer;
   fclose(fp);
+}
+
+void MyFrame::OnScroll1(wxScrollEvent& event)
+{
+  pos1 = slider1->GetValue();
+  r1 = pos1;
+  cout << pos1 << endl;
+}
+
+void MyFrame::OnScroll2(wxScrollEvent& event)
+{
+  pos2 = slider2->GetValue();
+  cout << pos2 << endl;
+}
+
+void MyFrame::OnScroll3(wxScrollEvent& event)
+{
+  pos3 = slider3->GetValue();
+  r3 = pos3;
+  cout << pos3 << endl;
+}
+
+void MyFrame::OnScroll4(wxScrollEvent& event)
+{
+  pos4 = slider4->GetValue();
+  r4 = pos4;
+  cout << pos4<< endl;
+}
+
+void MyFrame::OnScroll5(wxScrollEvent& event)
+{
+  pos5 = slider5->GetValue();
+  speed = pos5;
+  cout << pos5 << endl;
 }
 
