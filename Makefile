@@ -9,7 +9,7 @@ BUNDLESIGNATURE = ????
 MACPACKAGEINFO=$(BUNDLE)/Contents/PkgInfo
 
 all: $(OBJ)
-	$(COMPILE) $(LIBS) $(FLAGS) -o main $(OBJ)
+	$(COMPILE) $(LIBS) $(FLAGS) -o crankrockersim $(OBJ)
 .cpp.o:
 	$(COMPILE) $(LIBS) $(FLAGS) -c $<  
 .PHONY: clean
